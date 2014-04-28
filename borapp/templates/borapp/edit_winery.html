@@ -1,0 +1,12 @@
+<h1>Add Winery</h1>
+
+<form action="{% url "winery-new" %}" method="POST">
+  {% csrf_token %}
+  <p>
+    {{ form.as_p }}
+  </p>
+  <input id="save_winery" type="submit" value="Save" />
+</form>
+
+<a href="{% url "winery-list" %}">back to list</a>
+

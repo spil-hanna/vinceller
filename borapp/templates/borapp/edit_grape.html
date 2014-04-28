@@ -1,0 +1,16 @@
+{% if grape.id %}
+<h1>Edit Grape</h1>
+{% else %}
+<h1>Add Grape</h1>
+{% endif %}
+
+<form action="{{ action }}" method="POST">
+  {% csrf_token %}
+  <p>
+    {{ form.as_p }}
+  </p>
+  <input id="save_grape" type="submit" value="Save" />
+</form>
+
+<a href="{% url "grape-list" %}">back to list</a>
+

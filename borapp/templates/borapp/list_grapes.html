@@ -1,0 +1,12 @@
+<h1>Borapp: Grapes</h1>
+<ul>
+  {% for grape in object_list %}
+    <li class="object">
+        {{ grape }}
+        (<a href="{% url "grape-edit" pk=grape.id %}">edit</a>)
+    </li>
+  {% endfor %}
+</ul>
+
+<a href="{% url "grape-new" %}">add grape</a>
+

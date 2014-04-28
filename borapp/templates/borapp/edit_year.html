@@ -1,0 +1,12 @@
+<h1>Add Year</h1>
+
+<form action="{% url "year-new" %}" method="POST">
+  {% csrf_token %}
+  <p>
+    {{ form.as_p }}
+  </p>
+  <input id="save_year" type="submit" value="Save" />
+</form>
+
+<a href="{% url "year-list" %}">back to list</a>
+
