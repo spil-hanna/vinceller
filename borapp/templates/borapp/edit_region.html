@@ -1,6 +1,10 @@
+{% if region.id %}
+<h1>Edit Region</h1>
+{% else %}
 <h1>Add Region</h1>
+{% endif %}
 
-<form action="{% url "region-new" %}" method="POST">
+<form action="{{ action }}" method="POST">
   {% csrf_token %}
   <p>
     {{ form.as_p }}

@@ -1,6 +1,10 @@
+{% if year.id %}
+<h1>Edit Year</h1>
+{% else %}
 <h1>Add Year</h1>
+{% endif %}
 
-<form action="{% url "year-new" %}" method="POST">
+<form action="{{ action }}" method="POST">
   {% csrf_token %}
   <p>
     {{ form.as_p }}

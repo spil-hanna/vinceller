@@ -1,0 +1,12 @@
+<h1>Borapp: Years</h1>
+<ul>
+  {% for year in object_list %}
+    <li class="object">
+        {{ year }}
+        (<a href="{% url "year-edit" pk=year.id %}">edit</a>)
+    </li>
+  {% endfor %}
+</ul>
+
+<a href="{% url "year-new" %}">add year</a>
+

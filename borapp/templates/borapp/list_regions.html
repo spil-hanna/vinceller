@@ -1,0 +1,12 @@
+<h1>Borapp: Regions</h1>
+<ul>
+  {% for region in object_list %}
+    <li class="object">
+        {{ region }}
+        (<a href="{% url "region-edit" pk=region.id %}">edit</a>)
+    </li>
+  {% endfor %}
+</ul>
+
+<a href="{% url "region-new" %}">add region</a>
+

@@ -1,10 +1,6 @@
-{% if wine.id %}
-<h1>Edit Wine</h1>
-{% else %}
-<h1>Add Wine</h1>
-{% endif %}
+<h1>Wine in Region: {{ region.name }}</h1>
 
-<form action="{{ action }}" method="POST">
+<form action="{% url "wineinregion" region_id=region.pk %}" method="POST">
   {% csrf_token %}
   <p>
     {{ form.as_p }}
