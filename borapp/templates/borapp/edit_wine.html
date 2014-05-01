@@ -1,8 +1,13 @@
-{% if wine.id %}
-<h1>Edit Wine</h1>
-{% else %}
-<h1>Add Wine</h1>
-{% endif %}
+{% extends "borapp/skeleton.html" %}
+{% block content %}
+
+<div class="page-header-xx">
+  {% if wine.id %}
+  <h1>Edit Wine</h1>
+  {% else %}
+  <h1>Add Wine</h1>
+  {% endif %}
+</div>
 
 <form action="{{ action }}" method="POST">
   {% csrf_token %}
@@ -13,4 +18,5 @@
 </form>
 
 <a href="{% url "wine-list" %}">back to list</a>
+{% endblock %}
 
