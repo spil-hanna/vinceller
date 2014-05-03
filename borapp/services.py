@@ -14,32 +14,22 @@ def is_in_region(winery, region):
     return winery.region == region
 
 
-def add_wine(data):
-    # parse, validate, save, post-process
-    form = WineForm(data)
-    if form.is_valid():
-        # extra check: winery is from the correct region
-        winery = form.cleaned_data['winery']
-        region = form.cleaned_data['region']
-        if is_in_region(winery, region):
-            form.save()
-        else:
-            # TODO: raise validation error
-            pass
-        # post processing
+def add_wine(form):
+    form.save()
+    # any post-procesing comes here
 
-def update_wine(wine, data):
-    # parse, validate, save, post-process
-    form = WineForm(data, instance=wine)
-    if form.is_valid():
-        # extra check: winery is from the correct region
-        winery = form.cleaned_data['winery']
-        region = form.cleaned_data['region']
-        if is_in_region(winery, region):
-            form.save()
-        else:
-            # TODO: raise validation error
-            pass
-        # post processing
+
+def update_wine(form):
+    form.save()
+    # any post-procesing comes here
+
+
+def extra_check(form):
+    # extra check: winery is from the correct region
+    winery = form.cleaned_data.get('winery', None)
+    region = form.cleaned_data.get('region', None)
+    if winery and region and not is_in_region(winery, region):
+        # TODO: raise validation error
+        pass
 
 

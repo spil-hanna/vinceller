@@ -30,23 +30,24 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Borapp</a>
+          <a class="navbar-brand" href="{% url "dashboard" %}">Borapp</a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li class="active"><a href="{% url "dashboard" %}">Home</a></li>
+            <li><a href="{% url "wine-list" %}">Wines</a></li>
+            <li><a href="{% url "grape-list" %}">Grapes</a></li>
+            <li><a href="{% url "region-list" %}">Regions</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
+                <li><a href="{% url "wine-list" %}">Wines</a></li>
+                <li><a href="{% url "grape-list" %}">Grapes</a></li>
+                <li><a href="{% url "region-list" %}">Regions</a></li>
                 <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
+                <li class="dropdown-header">Not supported yet</li>
+                <li><a href="#">Upload photo</a></li>
+                <li><a href="#">Taste wine</a></li>
               </ul>
             </li>
           </ul>
@@ -54,7 +55,7 @@
       </div>
     </div>
 
-    <div class="container" style="padding: 50px">
+    <div class="container" style="padding: 40px">
 <!-- Begin page content ================================================== -->
       {% block content %}{% endblock %}
 <!-- End page content ==================================================== -->
@@ -62,7 +63,7 @@
 
     <div class="footer navbar-fixed-bottom">
       <div class="container">
-        <p class="text-muted">Place sticky footer content here.</p>
+        <p class="text-muted"></p>
       </div>
     </div>
 

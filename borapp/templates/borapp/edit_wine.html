@@ -1,11 +1,11 @@
 {% extends "borapp/skeleton.html" %}
 {% block content %}
 
-<div class="page-header-xx">
+<div class="page-header">
   {% if wine.id %}
   <h1>Edit Wine</h1>
   {% else %}
-  <h1>Add Wine</h1>
+  <h1>New Wine</h1>
   {% endif %}
 </div>
 
@@ -14,9 +14,10 @@
   <p>
     {{ form.as_p }}
   </p>
-  <input id="save_wine" type="submit" value="Save" />
+  <input id="save_wine" type="submit" value="{% if wine.id %}Update wine{% else %}Add wine{% endif %}" />
 </form>
 
-<a href="{% url "wine-list" %}">back to list</a>
+<hr>
+<a href="{% url "wine-list" %}">Back to list</a>
 {% endblock %}
 

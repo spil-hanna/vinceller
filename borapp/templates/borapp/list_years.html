@@ -1,4 +1,10 @@
-<h1>Borapp: Years</h1>
+{% extends "borapp/skeleton.html" %}
+{% block content %}
+
+<div class="page-header">
+    <h1>Borapp: Years</h1>
+</div>
+
 <ul>
   {% for year in object_list %}
     <li class="object">
@@ -8,5 +14,6 @@
   {% endfor %}
 </ul>
 
-<a href="{% url "year-new" %}">add year</a>
+<hr>
+<a href="{% url "year-new" %}">Add new year</a>
 

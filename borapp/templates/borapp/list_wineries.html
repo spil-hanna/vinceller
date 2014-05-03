@@ -1,4 +1,10 @@
-<h1>Borapp: Wineries</h1>
+{% extends "borapp/skeleton.html" %}
+{% block content %}
+
+<div class="page-header">
+    <h1>Borapp: Wineries</h1>
+<div>
+
 <ul>
   {% for winery in object_list %}
     <li class="object">
@@ -8,5 +14,6 @@
   {% endfor %}
 </ul>
 
-<a href="{% url "winery-new" %}">add winery</a>
+<hr>
+<a href="{% url "winery-new" %}">Add new winery</a>
 

@@ -1,7 +1,7 @@
 {% extends "borapp/skeleton.html" %}
 {% block content %}
 
-<div class="page-header-xx">
+<div class="page-header">
   <h1>Wines</h1>
 </div>
 
@@ -14,5 +14,6 @@
   {% endfor %}
 </ul>
 
-<a href="{% url "wine-new" %}">add wine</a>
+<hr>
+<a href="{% url "wine-new" %}">Add new wine</a>
 {% endblock %}

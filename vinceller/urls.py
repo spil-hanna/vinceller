@@ -4,11 +4,27 @@ from django.contrib import admin
 from borapp.views import *
 
 urlpatterns = patterns('',
+
+    url(r'^$', dashboard,
+        name='dashboard'),
+
     url(r'^grapes/$', GrapeListView.as_view(),
         name='grape-list'),
+    url(r'^grapes/new$',
+        grape_new,
+        name='grape-new',),
+    url(r'^grapes/(?P<pk>\d+)/$',
+        grape_edit,
+        name='grape-edit'),
 
     url(r'^regions/$', RegionListView.as_view(),
         name='region-list'),
+    url(r'^regions/new$',
+        region_new,
+        name='region-new',),
+    url(r'^regions/(?P<pk>\d+)/$',
+        region_edit,
+        name='region-edit'),
 
     url(r'^years/$', YearListView.as_view(),
         name='year-list'),
