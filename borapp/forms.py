@@ -13,7 +13,6 @@ class WineForm(ModelForm):
             'grapes',
             'region',
             'winery',
-            'comments',
         ]
 
     def clean(self):

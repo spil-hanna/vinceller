@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.views.generic import View, ListView, DetailView, CreateView, UpdateView
-
+from django.forms.models import modelform_factory
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django import forms
@@ -25,7 +25,22 @@ class GrapeListView(ListView):
 
 
 def grape_new(request):
-    return HttpResponseRedirect(reverse('dashboard'))
+    if request.method == 'POST':
+        Form = modelform_factory(Grape, fields=('name',))
+        form = Form(request.POST)
+        try:
+            form.save()
+            return HttpResponseRedirect(reverse('grape-list'))
+        except ValueError:
+            pass
+    else:
+        Form = modelform_factory(Grape, fields=('name',))
+        form = Form()
+    
+    return render(request, 'borapp/edit_grape.html', {
+        'form': form,
+        'action': reverse('grape-new'),
+    })    
 
 
 def grape_edit(request, pk):
@@ -38,7 +53,22 @@ class RegionListView(ListView):
 
 
 def region_new(request):
-    return HttpResponseRedirect(reverse('dashboard'))
+    if request.method == 'POST':
+        Form = modelform_factory(Region, fields=('name',))
+        form = Form(request.POST)
+        try:
+            form.save()
+            return HttpResponseRedirect(reverse('region-list'))
+        except ValueError:
+            pass
+    else:
+        Form = modelform_factory(Region, fields=('name',))
+        form = Form()
+    
+    return render(request, 'borapp/edit_region.html', {
+        'form': form,
+        'action': reverse('region-new'),
+    })    
 
 
 def region_edit(request, pk):
