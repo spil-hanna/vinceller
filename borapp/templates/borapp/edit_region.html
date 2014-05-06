@@ -1,16 +1,27 @@
-{% if region.id %}
-<h1>Edit Region</h1>
-{% else %}
-<h1>Add Region</h1>
-{% endif %}
+{% extends "borapp/skeleton.html" %}
+{% block content %}
+
+<div class="page-header">
+  {% if region.id %}
+  <h1>Edit Region</h1>
+  {% else %}
+  <h1>Add Region</h1>
+  {% endif %}
+</div>
 
 <form action="{{ action }}" method="POST">
   {% csrf_token %}
   <p>
-    {{ form.as_p }}
+    {{ region_form.as_p }}
   </p>
-  <input id="save_region" type="submit" value="Save" />
+  <hr>
+  Wineries in the region
+  <p>
+    {{ winery_forms.as_p }}
+  </p>
+  <input id="save_region" type="submit" value="{% if region.id %}Update region{% else %}Add region{% endif %}" />
 </form>
 
-<a href="{% url "region-list" %}">back to list</a>
-
+<hr>
+<a href="{% url "region-list" %}">Back to list</a>
+{% endblock %}
