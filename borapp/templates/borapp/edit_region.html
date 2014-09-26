@@ -19,9 +19,9 @@
   <p>
     {{ winery_forms.as_p }}
   </p>
-  <input id="save_region" type="submit" value="{% if region.id %}Update region{% else %}Add region{% endif %}" />
+  <input id="save_region" class="btn btn-default" type="submit" value="{% if region.id %}Update region{% else %}Add region{% endif %}" />
 </form>
 
 <hr>
-<a href="{% url "region-list" %}">Back to list</a>
+<a href="{% url "regions-list" %}">Back to list</a>
 {% endblock %}

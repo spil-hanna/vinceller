@@ -2,19 +2,25 @@
 {% block content %}
 
 <div class="page-header">
-    <h1>Grapes</h1>
+  <h1>Grapes</h1>
 </div>
 
-<ul>
-  {% for grape in object_list %}
-    <li class="object">
-        {{ grape }}
-        (<a href="{% url "grape-edit" pk=grape.id %}">edit</a>)
-    </li>
-  {% endfor %}
-</ul>
+<div class="row">
+  <div class="col-md-8">
+    Grapes
+    <ul>
+      {% for grape in object_list %}
+        <li class="object">
+          {{ grape }}
+          (<a href="{% url "grapes-edit" pk=grape.id %}">edit</a>)
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="col-md-4">
+    <a class="btn btn-default" href="{% url "grapes-new" %}">Add new grape</a>
+  <div>
+</div>
 
-<hr>
-<a href="{% url "grape-new" %}">Add new grape</a>
 {% endblock %}
 

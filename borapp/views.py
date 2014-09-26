@@ -20,18 +20,23 @@ def dashboard(request):
     })
 
 
+'''
+Grape views
+The simplest set of CRUD forms
+- generic views
+- mofel forms (with form factory) 
+'''
 class GrapeListView(ListView):
     model = Grape
     template_name = 'borapp/list_grapes.html'
 
-
-def grape_new(request):
+def grapes_new(request):
     if request.method == 'POST':
         Form = modelform_factory(Grape, fields=('name',))
         form = Form(request.POST)
         try:
             form.save()
-            return HttpResponseRedirect(reverse('grape-list'))
+            return HttpResponseRedirect(reverse('grapes-list'))
         except ValueError:
             pass
     else:
@@ -40,39 +45,81 @@ def grape_new(request):
     
     return render(request, 'borapp/edit_grape.html', {
         'form': form,
-        'action': reverse('grape-new'),
+        'action': reverse('grapes-new'),
     })    
 
 
-def grape_edit(request, pk):
-    return HttpResponseRedirect(reverse('dashboard'))
+def grapes_edit(request, pk):
+    grape = get_object_or_404(Grape, pk=pk)
+    
+    if request.method == 'POST':
+        Form = modelform_factory(Grape, fields=('name',))
+        form = Form(request.POST, instance=grape)
+        try:
+            form.save()
+            return HttpResponseRedirect(reverse('grapes-list'))
+        except ValueError:
+            pass
+    else:
+        Form = modelform_factory(Grape, fields=('name',))
+        form = Form(instance=grape)
+    
+    return render(request, 'borapp/edit_grape.html', {
+        'form': form,
+        'action': reverse('grapes-edit', kwargs={'pk': grape.id}),
+        'grape': grape,
+    })    
 
 
+'''
+Views for Region and Winery
+'''
 class RegionListView(ListView):
     model = Region
     template_name = 'borapp/list_regions.html'
 
 
-def region_new(request):
+def regions_new(request):
     if request.method == 'POST':
         Form = modelform_factory(Region, fields=('name',))
         form = Form(request.POST)
+        WineryFormSet = inlineformset_factory(
+            Region,
+            Winery,
+            fk_name='region',
+            fields=('name', 'website',),
+            can_delete=False,
+            extra=1
+        )
+        formset = WineryFormSet(request.POST)
         try:
-            form.save()
-            return HttpResponseRedirect(reverse('region-list'))
+            region = form.save()
+            formset.instance = region
+            formset.save()
+            return HttpResponseRedirect(reverse('regions-list'))
         except ValueError:
             pass
     else:
         Form = modelform_factory(Region, fields=('name',))
         form = Form()
+        WineryFormSet = inlineformset_factory(
+            Region,
+            Winery,
+            fk_name='region',
+            fields=('name', 'website',),
+            can_delete=False,
+            extra=1
+        )
+        formset = WineryFormSet()
     
     return render(request, 'borapp/edit_region.html', {
         'region_form': form,
-        'action': reverse('region-new'),
+        'winery_forms': formset,
+        'action': reverse('regions-new'),
     })    
 
 
-def region_edit(request, pk):
+def regions_edit(request, pk):
     region = get_object_or_404(Region, pk=pk)
     
     if request.method == 'POST':
@@ -80,13 +127,17 @@ def region_edit(request, pk):
         form = Form(request.POST, instance=region)
         WineryFormSet = inlineformset_factory(
             Region,
-            Winery
+            Winery,
+            fk_name='region',
+            fields=('name', 'website',),
+            can_delete=False,
+            extra=1
         )
         formset = WineryFormSet(request.POST, instance=region)
         try:
             form.save()
             formset.save()
-            return HttpResponseRedirect(reverse('region-list'))
+            return HttpResponseRedirect(reverse('regions-list'))
         except ValueError:
             pass
     else:
@@ -105,7 +156,7 @@ def region_edit(request, pk):
     return render(request, 'borapp/edit_region.html', {
         'region_form': form,
         'winery_forms': formset,
-        'action': reverse('region-edit', kwargs={'pk': region.id}),
+        'action': reverse('regions-edit', kwargs={'pk': region.id}),
         'region': region,
     })    
 
@@ -119,18 +170,21 @@ class WineryListView(ListView):
     model = Winery
     template_name = 'borapp/list_wineries.html'
 
-
+'''
+Views for wine, using
+- handmade form
+'''
 class WineListView(ListView):
     model = Wine
     template_name = 'borapp/list_wines.html'
 
 
-def wine_new(request):
+def wines_new(request):
     if request.method == 'POST':
         form = WineForm(request.POST)
         try:
             services.add_wine(form)
-            return HttpResponseRedirect(reverse('wine-list'))
+            return HttpResponseRedirect(reverse('wines-list'))
         except ValueError:
             pass
     else:
@@ -138,18 +192,18 @@ def wine_new(request):
     
     return render(request, 'borapp/edit_wine.html', {
         'form': form,
-        'action': reverse('wine-new'),
+        'action': reverse('wines-new'),
     })    
 
 
-def wine_edit(request, pk):
+def wines_edit(request, pk):
     wine = get_object_or_404(Wine, pk=pk)
        
     if request.method == 'POST':
         form = WineForm(request.POST, instance=wine)
         try:
             services.update_wine(form)
-            return HttpResponseRedirect(reverse('wine-list'))
+            return HttpResponseRedirect(reverse('wines-list'))
         except ValueError:
             pass
     else:
@@ -157,7 +211,7 @@ def wine_edit(request, pk):
     
     return render(request, 'borapp/edit_wine.html', {
         'form': form,
-        'action': reverse('wine-edit', kwargs={'pk': wine.id}),
+        'action': reverse('wines-edit', kwargs={'pk': wine.id}),
         'wine': wine,
     })    
 
@@ -168,7 +222,7 @@ def wineinregion(request, region_id):
     if request.method == 'POST':
         form = WineInRegionForm(request.POST)
         form.save()
-        return HttpResponseRedirect(reverse('wine-list'))
+        return HttpResponseRedirect(reverse('wines-list'))
     else:
         form = WineInRegionForm()
         form.fields['winery'] = forms.ModelChoiceField(Winery.objects.filter(region=region.pk))

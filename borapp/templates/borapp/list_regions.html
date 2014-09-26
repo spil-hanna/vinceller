@@ -5,16 +5,21 @@
     <h1>Regions</h1>
 </div>
 
-<ul>
-  {% for region in object_list %}
-    <li class="object">
-        {{ region }}
-        (<a href="{% url "region-edit" pk=region.id %}">edit</a>)
-    </li>
-  {% endfor %}
-</ul>
+<div class="row">
+  <div class="col-md-8">
+    Regions
+    <ul>
+      {% for region in object_list %}
+        <li class="object">
+          {{ region }}
+          (<a href="{% url "regions-edit" pk=region.id %}">edit</a>)
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="col-md-4">
+    <a class="btn btn-default" href="{% url "regions-new" %}">Add new region</a>
+  <div>
 
-<hr>
-<a href="{% url "region-new" %}">Add new region</a>
 {% endblock %}
 

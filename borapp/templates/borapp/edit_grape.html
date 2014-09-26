@@ -9,15 +9,15 @@
   {% endif %}
 </div>
 
-<form action="{{ action }}" method="POST">
+<form class="form-horizontal" role="form" action="{{ action }}" method="POST">
   {% csrf_token %}
-  <p>
-    {{ form.as_p }}
-  </p>
-  <input id="save_grape" type="submit" value="{% if grape.id %}Update grape{% else %}Add grape{% endif %}" />
+  <div class="form-group">
+    {{ form }}
+  </div>
+  <input id="save_grape" class="btn btn-default" type="submit" value="{% if grape.id %}Update grape{% else %}Add grape{% endif %}" />
 </form>
 
 <hr>
-<a href="{% url "grape-list" %}">Back to list</a>
+<a href="{% url "grapes-list" %}">Back to list</a>
 {% endblock %}
 

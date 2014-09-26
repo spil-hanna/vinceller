@@ -9,11 +9,11 @@
   {% for wine in object_list %}
     <li class="object">
         {{ wine }}
-        (<a href="{% url "wine-edit" pk=wine.id %}">edit</a>)
+        (<a href="{% url "wines-edit" pk=wine.id %}">edit</a>)
     </li>
   {% endfor %}
 </ul>
 
 <hr>
-<a href="{% url "wine-new" %}">Add new wine</a>
+<a href="{% url "wines-new" %}">Add new wine</a>
 {% endblock %}
