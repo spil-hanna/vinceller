@@ -8,11 +8,13 @@ from django.http import HttpResponseRedirect
 
 from django.views.generic import View, ListView, DetailView, CreateView, UpdateView
 
+from django.contrib.auth.decorators import login_required
+
 from borapp.models import *
 from borapp.forms import *
 from borapp import services
 
-
+@login_required
 def dashboard(request):
     wines = Wine.objects.all()
     return render(request, 'borapp/dashboard.html', {
@@ -30,6 +32,7 @@ class GrapeListView(ListView):
     model = Grape
     template_name = 'borapp/list_grapes.html'
 
+@login_required
 def grapes_new(request):
     if request.method == 'POST':
         Form = modelform_factory(Grape, fields=('name',))
@@ -49,6 +52,7 @@ def grapes_new(request):
     })    
 
 
+@login_required
 def grapes_edit(request, pk):
     grape = get_object_or_404(Grape, pk=pk)
     
@@ -79,6 +83,7 @@ class RegionListView(ListView):
     template_name = 'borapp/list_regions.html'
 
 
+@login_required
 def regions_new(request):
     if request.method == 'POST':
         Form = modelform_factory(Region, fields=('name',))
@@ -119,6 +124,7 @@ def regions_new(request):
     })    
 
 
+@login_required
 def regions_edit(request, pk):
     region = get_object_or_404(Region, pk=pk)
     
@@ -179,6 +185,7 @@ class WineListView(ListView):
     template_name = 'borapp/list_wines.html'
 
 
+@login_required
 def wines_new(request):
     if request.method == 'POST':
         form = WineForm(request.POST)
@@ -196,6 +203,7 @@ def wines_new(request):
     })    
 
 
+@login_required
 def wines_edit(request, pk):
     wine = get_object_or_404(Wine, pk=pk)
        
@@ -216,6 +224,7 @@ def wines_edit(request, pk):
     })    
 
 
+@login_required
 def wineinregion(request, region_id):
     # region hardcoded
     region = get_object_or_404(Region, pk=region_id)
