@@ -7,7 +7,7 @@ from borapp.views import *
 
 urlpatterns = patterns('',
 
-    url(r'^accounts/login/$', auth_views.login),
+    url(r'^accounts/login/$', auth_views.login, {template_name: 'borapp/login.html'}),
 
     url(r'^$', dashboard,
         name='dashboard'),
